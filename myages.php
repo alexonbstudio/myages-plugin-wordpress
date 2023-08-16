@@ -37,18 +37,3 @@ function myages_shortcode($atts) {
 }
 
 add_shortcode('ages', 'myages_shortcode');
-
-function dates_shortcode($atts) {
-    $now = $atts['now'];
-
-    $now_date = DateTime::createFromFormat('d/m/Y', $now);
-    if (!$now_date) {
-        return 'Date current now. Utilisez le format "aaaa".';
-    }
-
-    $dates = date($now_date);
-
-    return $dates;
-}
-add_shortcode('dates', 'dates_shortcode');
-
