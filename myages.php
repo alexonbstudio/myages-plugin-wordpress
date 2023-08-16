@@ -18,6 +18,8 @@ function mon_plugin_avec_ages() {
 add_shortcode('ages', 'mon_plugin_avec_ages');
 */
 # exemple [ages born='24/04/1991']
+
+
 function myages_shortcode($atts) {
     // Récupère la valeur de l'attribut 'born' du shortcode
     $born = $atts['born'];
@@ -33,4 +35,20 @@ function myages_shortcode($atts) {
 
     return $age;
 }
+
 add_shortcode('ages', 'myages_shortcode');
+
+function dates_shortcode($atts) {
+    $now = $atts['now'];
+
+    $now_date = DateTime::createFromFormat('d/m/Y', $now);
+    if (!$now_date) {
+        return 'Date current now. Utilisez le format "aaaa".';
+    }
+
+    $dates = date($now_date);
+
+    return $dates;
+}
+add_shortcode('dates', 'dates_shortcode');
+
