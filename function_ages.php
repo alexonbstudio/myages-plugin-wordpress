@@ -1,13 +1,25 @@
 <?php
-/* 
-# first method
-function age($data){
-	$BirthdayDate = explode("/", $data); 
-	$age_out = (date("md", date("U", mktime(0, 0, 0, $BirthdayDate[0], $BirthdayDate[1], $BirthdayDate[2]))) > date("md") ? ((date("Y") - $BirthdayDate[2]) - 1) : (date("Y") - $BirthdayDate[2]));		 	
-	return $age_out;	
+/*
+Plugin Name: Ages automate (ages)
+Plugin URI: https://example.com/mon-plugin
+Description: Put your age without always change your page or article always indicate the ages finally example (1) years to use is [ages born='Days/Month/Years']
+Version: 1.0
+Author: Alexon Balangue (WebJetClouds)
+Author URI: https://webjet.Cloud
+License: GPL2
+*/
+/*
+require_once plugin_dir_path(__FILE__) . 'function_ages.php';
+
+function mon_plugin_avec_ages() {
+    $resultat = fonction_ages();
+    return 'Résultat de la fonction ages : ' . $resultat;
 }
-# second method
-*/		
+add_shortcode('ages', 'mon_plugin_avec_ages');
+*/
+# exemple [ages born='24/04/1991']
+
+
 function myages_shortcode($atts) {
     // Récupère la valeur de l'attribut 'born' du shortcode
     $born = $atts['born'];
@@ -23,9 +35,20 @@ function myages_shortcode($atts) {
 
     return $age;
 }
+
 add_shortcode('ages', 'myages_shortcode');
 
+function dates_shortcode($atts) {
+    $now = $atts['now'];
 
-# exemple : echo age('24/04/1991');
+    $now_date = DateTime::createFromFormat('d/m/Y', $now);
+    if (!$now_date) {
+        return 'Date current now. Utilisez le format "aaaa".';
+    }
 
-?>
+    $dates = date($now_date);
+
+    return $dates;
+}
+add_shortcode('dates', 'dates_shortcode');
+
